@@ -4,9 +4,11 @@ go 1.23.1
 
 require (
 	github.com/go-chi/chi/v5 v5.2.0
+	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.7.2
 	github.com/joeshaw/envdecode v0.0.0-20200121155833-099f1fc765bd
 	github.com/pressly/goose/v3 v3.24.1
+	gorm.io/gorm v1.25.12
 )
 
 require (
@@ -21,6 +23,4 @@ require (
 	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
-	gorm.io/driver/postgres v1.5.11 // indirect
-	gorm.io/gorm v1.25.12 // indirect
 )
