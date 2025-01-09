@@ -16,8 +16,8 @@ func New() *chi.Mux {
 		birdAPI := &bird.API{}
 		r.Get("/birds", birdAPI.List)
 		r.Post("/birds", birdAPI.Create)
-		r.Get("/birds/{id}", birdAPI.Read)
-		r.Put("/birds/{id}", birdAPI.Update)
+		// r.Get("/birds/{id}", birdAPI.Read)
+		// r.Put("/birds/{id}", birdAPI.Update)
 		r.Delete("/birds/{id}", birdAPI.Delete)
 	})
 
