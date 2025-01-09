@@ -10,6 +10,7 @@ import (
 	gormlogger "gorm.io/gorm/logger"
 
 	"bird-box-go/api/router"
+	"bird-box-go/cmd/recording"
 	"bird-box-go/config"
 )
 
@@ -41,8 +42,15 @@ func main() {
 		IdleTimeout:  c.Server.TimeoutIdle,
 	}
 
+	fmt.Println("Available audio input devices:")
+	var devices = recording.New()
+	for _, mic := range *devices {
+		fmt.Println(string(mic))
+	}
+
 	log.Println("Starting server " + s.Addr)
 	if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatal("Server startup failed")
 	}
+
 }
