@@ -9,6 +9,12 @@ import (
 	"bird-box-go/config"
 )
 
+//  @title          Bird-Box-Go API
+//  @version        1.0
+//  @description    This is a work-in-progress version of a RESTful API with a CRUD functionality to control & access an app. Most things are taken from https://learning-cloud-native-go.github.io
+//  @host       localhost:8080
+//  @basePath   /v1
+
 func main() {
 	c := config.New()
 	r := router.New()
