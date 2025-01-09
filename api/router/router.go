@@ -13,12 +13,12 @@ func New() *chi.Mux {
 	r.Get("/health", health.Read)
 
 	r.Route("/v1", func(r chi.Router) {
-		bookAPI := &bird.API{}
-		r.Get("/books", bookAPI.List)
-		r.Post("/books", bookAPI.Create)
-		r.Get("/books/{id}", bookAPI.Read)
-		r.Put("/books/{id}", bookAPI.Update)
-		r.Delete("/books/{id}", bookAPI.Delete)
+		birdAPI := &bird.API{}
+		r.Get("/birds", birdAPI.List)
+		r.Post("/birds", birdAPI.Create)
+		r.Get("/birds/{id}", birdAPI.Read)
+		r.Put("/birds/{id}", birdAPI.Update)
+		r.Delete("/birds/{id}", birdAPI.Delete)
 	})
 
 	return r
