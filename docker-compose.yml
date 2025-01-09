@@ -15,11 +15,12 @@ services:
     image: postgres:alpine
     environment:
       - .env
-      # - POSTGRES_DB=myapp_db
-      # - POSTGRES_USER=myapp_user
-      # - POSTGRES_PASSWORD=myapp_pass
+      - POSTGRES_DB=bird-box-go-db
+      - POSTGRES_USER=birds
+      - POSTGRES_PASSWORD=password
     ports:
       - "5432:5432"
+      
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U birds -d bird-box-go-db" ]
       interval: 3s
