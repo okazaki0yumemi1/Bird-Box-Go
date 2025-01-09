@@ -12,7 +12,7 @@ import (
 
 const (
 	dialect  = "pgx"
-	dbString = "host=localhost user=myapp_user password=myapp_pass dbname=myapp_db port=5432 sslmode=disable"
+	dbString = "host=localhost user=birds password=password dbname=bird-box-go-db port=5432 sslmode=disable"
 )
 
 var (
