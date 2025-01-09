@@ -3,7 +3,7 @@
 CREATE TABLE IF NOT EXISTS birds
 (
     id                  UUID        PRIMARY KEY,
-    name                TEXT        NOT NULL,
+    common_name         TEXT        NOT NULL,
     confidence          TEXT        NOT NULL,
     recoding_date       DATE        NULL,
     microphone_name     TEXT        NULL,
@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS birds
 
 -- +goose Down
 -- SQL in this section is executed when the migration is rolled back.
-DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS birds;
