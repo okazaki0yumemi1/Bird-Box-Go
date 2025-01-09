@@ -1,30 +1,27 @@
 package main
 
 import (
-	"io"
+	"fmt"
 	"log"
 	"net/http"
-	"time"
+
+	"bird-box-go/api/router"
+	"bird-box-go/config"
 )
 
 func main() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/hello", hello)
-
+	c := config.New()
+	r := router.New()
 	s := &http.Server{
-		Addr:         ":8080",
-		Handler:      mux,
-		ReadTimeout:  2 * time.Second,
-		WriteTimeout: 2 * time.Second,
-		IdleTimeout:  5 * time.Second,
+		Addr:         fmt.Sprintf(":%d", c.Server.Port),
+		Handler:      r,
+		ReadTimeout:  c.Server.TimeoutRead,
+		WriteTimeout: c.Server.TimeoutWrite,
+		IdleTimeout:  c.Server.TimeoutIdle,
 	}
 
-	log.Println("Starting server :8080")
+	log.Println("Starting server " + s.Addr)
 	if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatal("Server startup failed")
 	}
-}
-
-func hello(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Hello, world!")
 }
