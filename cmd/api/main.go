@@ -20,11 +20,7 @@ func main() {
 	c := config.New()
 
 	var logLevel gormlogger.LogLevel
-	if c.DB.Debug {
-		logLevel = gormlogger.Info
-	} else {
-		logLevel = gormlogger.Error
-	}
+	logLevel = gormlogger.Error
 
 	dbString := fmt.Sprintf(fmtDBString, c.DB.Host, c.DB.Username, c.DB.Password, c.DB.DBName, c.DB.Port)
 	db, err := gorm.Open(postgres.Open(dbString), &gorm.Config{Logger: gormlogger.Default.LogMode(logLevel)})

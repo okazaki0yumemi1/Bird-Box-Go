@@ -2,9 +2,11 @@ package config
 
 import (
 	"log"
+	"os"
+	"strconv"
 	"time"
 
-	"github.com/joeshaw/envdecode"
+	"github.com/joho/godotenv"
 )
 
 type Conf struct {
@@ -13,11 +15,10 @@ type Conf struct {
 }
 
 type ConfServer struct {
-	Port         int           `env:"SERVER_PORT,required"`
-	TimeoutRead  time.Duration `env:"SERVER_TIMEOUT_READ,required"`
-	TimeoutWrite time.Duration `env:"SERVER_TIMEOUT_WRITE,required"`
-	TimeoutIdle  time.Duration `env:"SERVER_TIMEOUT_IDLE,required"`
-	Debug        bool          `env:"SERVER_DEBUG,required"`
+	Port         int `env:"SERVER_PORT,required"`
+	TimeoutIdle  time.Duration
+	TimeoutRead  time.Duration
+	TimeoutWrite time.Duration
 }
 
 type ConfDB struct {
@@ -26,23 +27,48 @@ type ConfDB struct {
 	Username string `env:"DB_USER,required"`
 	Password string `env:"DB_PASS,required"`
 	DBName   string `env:"DB_NAME,required"`
-	Debug    bool   `env:"DB_DEBUG,required"`
 }
 
 func New() *Conf {
 	var c Conf
-	if err := envdecode.StrictDecode(&c); err != nil {
-		log.Fatalf("Failed to decode: %s", err)
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
 	}
-
+	c.DB = *NewDB()
+	c.Server = *NewServer()
 	return &c
 }
 
 func NewDB() *ConfDB {
 	var c ConfDB
-	if err := envdecode.StrictDecode(&c); err != nil {
-		log.Fatalf("Failed to decode: %s", err)
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
 	}
+	c.Host = os.Getenv("DB_HOST")
+	c.Port, err = strconv.Atoi(os.Getenv("DB_PORT"))
+	if err != nil {
+		log.Fatal("Unable to parse string to int (DB_PORT)")
+	}
+	c.Username = os.Getenv("DB_USER")
+	c.Password = os.Getenv("DB_PASS")
+	c.DBName = os.Getenv("DB_NAME")
+	return &c
+}
 
+func NewServer() *ConfServer {
+	var c ConfServer
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	c.Port, err = strconv.Atoi(os.Getenv("DB_PORT"))
+	if err != nil {
+		log.Fatal("Unable to parse string to int (DB_PORT)")
+	}
+	c.TimeoutIdle = 10 * time.Second
+	c.TimeoutRead = 10 * time.Second
+	c.TimeoutWrite = 10 * time.Second
 	return &c
 }
