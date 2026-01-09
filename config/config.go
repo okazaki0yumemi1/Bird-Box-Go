@@ -63,9 +63,9 @@ func NewServer() *ConfServer {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	c.Port, err = strconv.Atoi(os.Getenv("DB_PORT"))
+	c.Port, err = strconv.Atoi(os.Getenv("SERVER_PORT"))
 	if err != nil {
-		log.Fatal("Unable to parse string to int (DB_PORT)")
+		log.Fatal("Unable to parse string to int (SERVER_PORT)")
 	}
 	c.TimeoutIdle = 10 * time.Second
 	c.TimeoutRead = 10 * time.Second
