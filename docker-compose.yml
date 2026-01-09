@@ -5,7 +5,7 @@ services:
     build: .
     env_file: .env
     ports:
-      - "8080:8080"
+      - "8090:8081"
     depends_on:
       db:
         condition: service_healthy
